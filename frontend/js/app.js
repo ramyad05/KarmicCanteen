@@ -34,72 +34,16 @@ function getDayNameFromDate(dateString) {
   return days[date.getDay()]
 }
 
-function initializeDefaultMenu() {
-  if (!localStorage.getItem("weeklyMenu")) {
-    const defaultMenu = {
-      Monday: {
-        Breakfast: ["Oatmeal", "Toast", "Juice"],
-        Lunch: ["Chicken Rice", "Salad", "Water"],
-        Snacks: ["Cookies", "Fruit", "Tea"],
-      },
-      Tuesday: {
-        Breakfast: ["Eggs", "Bread", "Milk"],
-        Lunch: ["Fish Curry", "Rice", "Water"],
-        Snacks: ["Biscuits", "Apple", "Coffee"],
-      },
-      Wednesday: {
-        Breakfast: ["Pancakes", "Syrup", "OJ"],
-        Lunch: ["Veggie Stir Fry", "Rice", "Water"],
-        Snacks: ["Cake", "Banana", "Tea"],
-      },
-      Thursday: {
-        Breakfast: ["Cereal", "Milk", "Toast"],
-        Lunch: ["Mutton Biryani", "Raita", "Water"],
-        Snacks: ["Donut", "Orange", "Coffee"],
-      },
-      Friday: {
-        Breakfast: ["Yogurt", "Granola", "Juice"],
-        Lunch: ["Paneer Butter", "Naan", "Water"],
-        Snacks: ["Muffin", "Grapes", "Tea"],
-      },
-      Saturday: {
-        Breakfast: ["French Toast", "Berries", "Milk"],
-        Lunch: ["Tandoori Chicken", "Roti", "Water"],
-        Snacks: ["Brownie", "Mango", "Coffee"],
-      },
-      Sunday: {
-        Breakfast: ["Waffle", "Honey", "Juice"],
-        Lunch: ["Butter Chicken", "Paratha", "Water"],
-        Snacks: ["Pie", "Watermelon", "Tea"],
-      },
-    }
-    localStorage.setItem("weeklyMenu", JSON.stringify(defaultMenu))
-  }
-}
-
 function checkAuth(role) {
-  if (role === "admin" && !localStorage.getItem("adminLoggedIn")) {
+  if (role === "admin" && !sessionStorage.getItem("admin")) {
     window.location.href = "../index.html"
   }
-  if (role === "employee" && !localStorage.getItem("employeeLoggedIn")) {
+  if (role === "employee" && !sessionStorage.getItem("employee")) {
     window.location.href = "../index.html"
   }
 }
 
 function logout() {
-  const isAdmin = localStorage.getItem("adminLoggedIn")
-  const isEmployee = localStorage.getItem("employeeLoggedIn")
-
-  if (isAdmin) {
-    localStorage.removeItem("adminLoggedIn")
-  }
-  if (isEmployee) {
-    localStorage.removeItem("employeeLoggedIn")
-    localStorage.removeItem("employeeEmail")
-  }
-
+  sessionStorage.clear()
   window.location.href = "../index.html"
 }
-
-// Initialize on page load
-initializeDefaultMenu()
